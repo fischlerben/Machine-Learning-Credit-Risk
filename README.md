@@ -13,20 +13,21 @@ After reading in the original dataset and converting a few columns, we were left
 The data was then split into X and y datframes, training/testing sets, and then scaled.  We were now ready to try different re-sampling techniques.
 
 ---
+
 ## Re-Sampling Techniques:
 
 ### Naive Random Oversampling:
 
     from imblearn.over_sampling import RandomOverSampler
     ros = RandomOverSampler(random_state=1)
-    X_resampled, y_resampled = ros.fit_resample(X_train, y_train)
+    X_resampled, y_resampled = ros.fit_resample(X_train_scaled, y_train)
     
-We then used a Logistic Regression model to train the dataset and make predictions:
+Next use a Logistic Regression model to train the dataset and make predictions:
 
     from sklearn.linear_model import LogisticRegression
     over_model = LogisticRegression(solver='lbfgs', random_state=1)
     over_model.fit(X_resampled, y_resampled)
-     predictions = over_model.predict(X_test)
+    predictions = over_model.predict(X_test_scaled)
     
 Calculating Balanced Accuracy Score:
 
@@ -47,25 +48,24 @@ The above code results in the following classification report:
 
     from imblearn.over_sampling import SMOTE
     smote = SMOTE(random_state=1, sampling_strategy=1.0)
-    X_resampled, y_resampled = smote.fit_resample(X_train, y_train)
+    X_resampled, y_resampled = smote.fit_resample(X_train_scaled, y_train)
     
 ### Cluster Centroids Undersampling:
 
     from imblearn.under_sampling import ClusterCentroids
     cc = ClusterCentroids(random_state=1)
-    X_resampled, y_resampled = cc.fit_resample(X_train, y_train)
+    X_resampled, y_resampled = cc.fit_resample(X_train_scaled, y_train)
     
 ### SMOTEENN Combination Over/Undersampling:
 
     from imblearn.combine import SMOTEENN
     sm = SMOTEENN(random_state=1)
-    X_resampled, y_resampled = sm.fit_resample(X_train, y_train)
+    X_resampled, y_resampled = sm.fit_resample(X_train_scaled, y_train)
     
 ## Results:
-Of the 4 models, the Logistic Regression model using the Random OverSampler had the best balanced accuracy score at 66%.  
-Of the 4 models, the Logistic Regression model using the Random OverSampler had the best recall score at 68%.  
-Of the 4 models, the Logistic Regression model using the Random OverSampler had the best geometric mean score at 66%.  
-
+Of the 4 models, the Logistic Regression model using the SMOTEENN Combination Re-Sampler had the best balanced accuracy score at 79.8%.  
+Of the 4 models, the Logistic Regression model using the Smote Oversampler had the best recall score at 88%.  
+Of the 4 models, both the Logistic Regression model using the SMOTEENN Combination Re-Sampler and the model using the Smote Oversampler had the best geometric mean scores at 79%.  
 ---
 
 ## Re-Sampling Using Ensemble Learners:
@@ -75,7 +75,7 @@ Of the 4 models, the Logistic Regression model using the Random OverSampler had 
     from imblearn.ensemble import BalancedRandomForestClassifier
     brf_model = BalancedRandomForestClassifier(bootstrap=True, class_weight=None, criterion='gini', max_depth=None, max_features='auto', max_leaf_nodes=None, min_impurity_decrease=0.0, min_samples_leaf=2, min_samples_split=2, min_weight_fraction_leaf=0.0, n_estimators=100, n_jobs=1, oob_score=False, random_state=1, replacement=False, sampling_strategy='auto', verbose=0, warm_start=False)
     brf_model.fit(X_train, y_train)
-    predictions = brf_model.predict(X_test)
+    predictions = brf_model.predict(X_test_scaled)
     
 ### Feature Importance Table:
 
@@ -89,9 +89,10 @@ The above code results in the following Feature Importance Table (this shows top
     from imblearn.ensemble import EasyEnsembleClassifier
     ee_model = EasyEnsembleClassifier(base_estimator=None, n_estimators=100, n_jobs=1, random_state=1, replacement=False, sampling_strategy='auto', verbose=0, warm_start=False)
     ee_model.fit(X_train, y_train)
-    predictions = ee_model.predict(X_test)
+    predictions = ee_model.predict(X_test_scaled)
     
 ## Results:
 Of the 2 models, the Easy Ensemble classifier had the best balanced accuracy score at 93%.  
 Of the 2 models, the Easy Ensemble classifier had the best recall score at 94%.  
 Of the 2 models, the Easy Ensemble classifier had the best geometric mean score at 93%.  
+The top three features are total_rec_prncp (8.3%), total_pymnt_inv (6.9%) and last_pymnt_amnt (6.1%).  
