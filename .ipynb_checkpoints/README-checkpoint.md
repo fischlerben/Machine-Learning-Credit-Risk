@@ -62,9 +62,9 @@ The above code results in the following classification report:
     X_resampled, y_resampled = sm.fit_resample(X_train, y_train)
     
 ## Results:
-Of the 4 models, the Logistic Regression model using the Random OverSampler had the best balanced accuracy score at 66%.
-Of the 4 models, the Logistic Regression model using the Random OverSampler had the best recall score at 68%.
-Of the 4 models, the Logistic Regression model using the Random OverSampler had the best geometric mean score at 66%.
+Of the 4 models, the Logistic Regression model using the Random OverSampler had the best balanced accuracy score at 66%.  
+Of the 4 models, the Logistic Regression model using the Random OverSampler had the best recall score at 68%.  
+Of the 4 models, the Logistic Regression model using the Random OverSampler had the best geometric mean score at 66%.  
 
 ---
 
@@ -92,6 +92,6 @@ The above code results in the following Feature Importance Table (this shows top
     predictions = ee_model.predict(X_test)
     
 ## Results:
-Of the 2 models, the Easy Ensemble classifier had the best balanced accuracy score at 93%.
-Of the 2 models, the Easy Ensemble classifier had the best recall score at 94%.
-Of the 2 models, the Easy Ensemble classifier had the best geometric mean score at 93%.
+Of the 2 models, the Easy Ensemble classifier had the best balanced accuracy score at 93%.  
+Of the 2 models, the Easy Ensemble classifier had the best recall score at 94%.  
+Of the 2 models, the Easy Ensemble classifier had the best geometric mean score at 93%.  
