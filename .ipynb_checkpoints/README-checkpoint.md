@@ -62,10 +62,11 @@ The above code results in the following classification report:
     sm = SMOTEENN(random_state=1)
     X_resampled, y_resampled = sm.fit_resample(X_train_scaled, y_train)
     
-## Results:
+### Results:
 Of the 4 models, the Logistic Regression model using the SMOTEENN Combination Re-Sampler had the best balanced accuracy score at 79.8%.  
 Of the 4 models, the Logistic Regression model using the Smote Oversampler had the best recall score at 88%.  
-Of the 4 models, both the Logistic Regression model using the SMOTEENN Combination Re-Sampler and the model using the Smote Oversampler had the best geometric mean scores at 79%.  
+Of the 4 models, both the Logistic Regression model using the SMOTEENN Combination Re-Sampler and the model using the Smote Oversampler had the best geometric mean scores at 79%.
+
 ---
 
 ## Re-Sampling Using Ensemble Learners:
@@ -91,7 +92,7 @@ The above code results in the following Feature Importance Table (this shows top
     ee_model.fit(X_train, y_train)
     predictions = ee_model.predict(X_test_scaled)
     
-## Results:
+### Results:
 Of the 2 models, the Easy Ensemble classifier had the best balanced accuracy score at 93%.  
 Of the 2 models, the Easy Ensemble classifier had the best recall score at 94%.  
 Of the 2 models, the Easy Ensemble classifier had the best geometric mean score at 93%.  
